@@ -11,7 +11,10 @@ func _ready() -> void:
 	mouse_filter = Control.MOUSE_FILTER_IGNORE
 	focus_mode = Control.FOCUS_NONE
 	dash_button.focus_mode = Control.FOCUS_NONE
+	dash_button.mouse_filter = Control.MOUSE_FILTER_STOP
+	dash_button.action_mode = BaseButton.ACTION_MODE_BUTTON_PRESS
 	dash_button.button_down.connect(_on_dash_button_down)
+	dash_button.gui_input.connect(_on_dash_gui_input)
 	joystick.vector_changed.connect(_on_joystick_vector_changed)
 	_apply_visibility(false)
 
@@ -42,6 +45,12 @@ func _apply_visibility(show_controls: bool) -> void:
 func _on_joystick_vector_changed(vector: Vector2) -> void:
 	if visible:
 		Global.joystick_vector = vector
+
+
+func _on_dash_gui_input(event: InputEvent) -> void:
+	if event is InputEventScreenTouch and event.pressed:
+		_on_dash_button_down()
+		dash_button.accept_event()
 
 
 func _on_dash_button_down() -> void:

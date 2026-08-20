@@ -82,11 +82,15 @@ func start_dash() -> void:
 
 func can_dash() -> bool:
     var want_dash := Input.is_action_just_pressed("dash") or Global.dash_just_pressed
+    if not want_dash:
+        return false
+    if is_dashing or not dash_cooldown_timer.is_stopped():
+        Global.dash_just_pressed = false
+        return false
+    if move_dir == Vector2.ZERO:
+        return false
     Global.dash_just_pressed = false
-    return not is_dashing and\
-    dash_cooldown_timer.is_stopped() and\
-    want_dash and\
-    move_dir != Vector2.ZERO
+    return true
 
 
 func is_facing_right() -> bool:

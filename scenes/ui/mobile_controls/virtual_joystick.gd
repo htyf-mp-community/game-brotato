@@ -33,6 +33,8 @@ func _ready() -> void:
 func _notification(what: int) -> void:
 	if what == NOTIFICATION_RESIZED and not _pressing:
 		_reset_visual()
+	elif what == NOTIFICATION_VISIBILITY_CHANGED and not is_visible_in_tree():
+		release()
 
 
 func release() -> void:
@@ -42,21 +44,23 @@ func release() -> void:
 	vector_changed.emit(output)
 
 
-func _input(event: InputEvent) -> void:
-	if not is_visible_in_tree():
-		return
-
+func _gui_input(event: InputEvent) -> void:
 	if event is InputEventScreenTouch:
 		if event.pressed:
+			if _pointer_id == MOUSE_ID:
+				_pointer_id = event.index
+				accept_event()
+				return
 			_try_press(event.index, event.position)
 		elif event.index == _pointer_id:
 			release()
-			get_viewport().set_input_as_handled()
+			accept_event()
 		return
 
 	if event is InputEventScreenDrag and event.index == _pointer_id:
-		_drag(event.position)
-		get_viewport().set_input_as_handled()
+		# GUI events are already expressed in this Control's local space.
+		_drag_local(event.position)
+		accept_event()
 		return
 
 	# A real finger already owns the stick; ignore emulated mouse.
@@ -68,13 +72,34 @@ func _input(event: InputEvent) -> void:
 			_try_press(MOUSE_ID, event.position)
 		elif _pointer_id == MOUSE_ID:
 			release()
-			get_viewport().set_input_as_handled()
+			accept_event()
 		return
 
 	if event is InputEventMouseMotion and _pointer_id == MOUSE_ID:
-		_drag(event.position)
-		get_viewport().set_input_as_handled()
+		_drag_local(get_local_mouse_position())
+		accept_event()
 
+
+func _input(event: InputEvent) -> void:
+	if not _pressing:
+		return
+	if event is InputEventScreenTouch and not event.pressed and event.index == _pointer_id:
+		release()
+		get_viewport().set_input_as_handled()
+		return
+	if event is InputEventScreenDrag and event.index == _pointer_id:
+		# Global input uses viewport/canvas coordinates, so convert it once.
+		_drag_local(make_canvas_position_local(event.position))
+		get_viewport().set_input_as_handled()
+		return
+	if _pointer_id != MOUSE_ID:
+		return
+	if event is InputEventMouseMotion:
+		_drag_local(get_local_mouse_position())
+		get_viewport().set_input_as_handled()
+	elif event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and not event.pressed:
+		release()
+		get_viewport().set_input_as_handled()
 
 func _draw() -> void:
 	draw_circle(_origin, ring_radius, ring_fill_color)
@@ -85,21 +110,20 @@ func _draw() -> void:
 	draw_arc(knob_pos, knob_radius, 0.0, TAU, 48, Color(1.0, 1.0, 1.0, 0.4), 3.0, true)
 
 
-func _try_press(pointer_id: int, viewport_pos: Vector2) -> void:
+func _try_press(pointer_id: int, local_pos: Vector2) -> void:
 	if _pressing:
 		return
-	var local_pos := _to_local(viewport_pos)
 	if not Rect2(Vector2.ZERO, size).has_point(local_pos):
 		return
 	_pressing = true
 	_pointer_id = pointer_id
 	_origin = local_pos if floating else _rest_origin()
-	_drag(viewport_pos)
-	get_viewport().set_input_as_handled()
+	_drag_local(local_pos)
+	accept_event()
 
 
-func _drag(viewport_pos: Vector2) -> void:
-	var delta := _to_local(viewport_pos) - _origin
+func _drag_local(local_pos: Vector2) -> void:
+	var delta := local_pos - _origin
 	if delta.length() > ring_radius:
 		delta = delta.normalized() * ring_radius
 	_knob_offset = delta
@@ -122,7 +146,3 @@ func _reset_visual() -> void:
 
 func _rest_origin() -> Vector2:
 	return Vector2(size.x * 0.5, maxf(ring_radius + 48.0, size.y - ring_radius - 48.0))
-
-
-func _to_local(viewport_pos: Vector2) -> Vector2:
-	return get_global_transform_with_canvas().affine_inverse() * viewport_pos

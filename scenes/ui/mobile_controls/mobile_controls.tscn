@@ -56,6 +56,8 @@ layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 mouse_filter = 2
 script = ExtResource("1_fv0ut")
 
@@ -70,8 +72,10 @@ script = ExtResource("2_4442d")
 
 [node name="DashButton" type="Button" parent="."]
 unique_name_in_owner = true
+z_index = 10
 custom_minimum_size = Vector2(160, 160)
-layout_mode = 0
+layout_mode = 1
+anchors_preset = 3
 anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
@@ -80,10 +84,13 @@ offset_left = -208.0
 offset_top = -208.0
 offset_right = -48.0
 offset_bottom = -48.0
+grow_horizontal = 0
+grow_vertical = 0
 focus_mode = 0
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_font_sizes/font_size = 36
 theme_override_styles/normal = SubResource("StyleBoxFlat_gjct5")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_m1ja8")
 theme_override_styles/hover = SubResource("StyleBoxFlat_obh40")
+action_mode = 0
 text = "冲刺"
