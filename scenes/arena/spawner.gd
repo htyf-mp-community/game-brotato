@@ -3,6 +3,8 @@ class_name Spawner
 
 signal on_wave_completed
 
+const MIN_SPAWN_DISTANCE := 280.0
+
 @export var spawn_area_size := Vector2(1000, 500)
 @export var waves_data: Array[WaveData]
 @export var enemy_collection: Array[UnitStats]
@@ -49,9 +51,29 @@ func set_spawn_timer() -> void:
 
 
 func get_random_spawn_position() -> Vector2:
-	var random_x := randf_range(-spawn_area_size.x, spawn_area_size.x)
-	var random_y := randf_range(-spawn_area_size.y, spawn_area_size.y)
-	return Vector2(random_x, random_y)
+	var spawn_pos := Vector2.ZERO
+	for _attempt in 12:
+		spawn_pos = Vector2(
+			randf_range(-spawn_area_size.x, spawn_area_size.x),
+			randf_range(-spawn_area_size.y, spawn_area_size.y)
+		)
+		if is_safe_spawn_position(spawn_pos, _player_position()):
+			return spawn_pos
+	var away := _player_position()
+	var dir := (spawn_pos - away).normalized()
+	if dir == Vector2.ZERO:
+		dir = Vector2.RIGHT
+	return away + dir * MIN_SPAWN_DISTANCE
+
+
+func is_safe_spawn_position(spawn_pos: Vector2, player_pos: Vector2) -> bool:
+	return spawn_pos.distance_to(player_pos) >= MIN_SPAWN_DISTANCE
+
+
+func _player_position() -> Vector2:
+	if is_instance_valid(Global.player):
+		return Global.player.global_position
+	return Vector2.ZERO
 
 
 func spawn_enemy() -> void:

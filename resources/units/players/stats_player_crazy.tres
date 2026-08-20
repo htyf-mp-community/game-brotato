@@ -16,4 +16,5 @@ speed = 350
 luck = 5.0
 block_chance = 5.0
 gold_drop = 0
+hp_regen = 1.0
 metadata/_custom_type_script = "uid://dslkq61ggb3ft"
