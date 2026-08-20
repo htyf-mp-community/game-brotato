@@ -47,14 +47,25 @@ func test_victory_fills_every_pip() -> void:
 
 
 func test_configured_run_is_eight_waves_of_thirty_seconds() -> void:
-	var wave: WaveData = ResourceLoader.load("res://resources/waves/data/wave_1_to_8.tres", "", ResourceLoader.CACHE_MODE_IGNORE)
-	assert_true(wave != null, "wave data should load")
-	if wave == null:
-		return
-	assert_eq(wave.from, 1)
-	assert_eq(wave.to, 8)
-	assert_eq(wave.wave_time, 30.0)
-	assert_eq(wave.fixed_spawn_time, 0.8)
+	var paths := [
+		"res://resources/waves/data/wave_1_to_4.tres",
+		"res://resources/waves/data/wave_5_to_6.tres",
+		"res://resources/waves/data/wave_7.tres",
+		"res://resources/waves/data/wave_8.tres",
+	]
+	var covered_from := 99
+	var covered_to := 0
+	for path in paths:
+		var wave: WaveData = ResourceLoader.load(path, "", ResourceLoader.CACHE_MODE_IGNORE)
+		assert_true(wave != null, path)
+		if wave == null:
+			return
+		assert_eq(wave.wave_time, 30.0, path)
+		assert_eq(wave.fixed_spawn_time, 0.8, path)
+		covered_from = mini(covered_from, wave.from)
+		covered_to = maxi(covered_to, wave.to)
+	assert_eq(covered_from, 1)
+	assert_eq(covered_to, 8)
 
 
 func test_enemy_stat_growth_per_wave_is_zero() -> void:

@@ -99,8 +99,8 @@
 
 - [x] 波时长改为 30 秒，有效波次 1–8
 - [x] 1–4 波：慢/中/快追击者（可沿用现有权重作起点）
-- [ ] 5–6 波：加入少量 `enemy_charger.tscn`
-- [ ] 7–8 波：再加少量 `enemy_shooter.tscn`（第 8 波两种都有，权重低）
+- [x] 5–6 波：加入少量 `enemy_charger.tscn`
+- [x] 7–8 波：再加少量 `enemy_shooter.tscn`（第 8 波两种都有，权重低）
 - [x] Arena 的 `waves_data` 挂上全部所需 `WaveData`
 - [x] 出怪间隔仍约 0.8 秒（`FIXED`）
 

@@ -1,0 +1,45 @@
+[gd_resource type="Resource" script_class="WaveData" load_steps=13 format=3 uid="uid://dvs8fvgs4mits"]
+
+[ext_resource type="Script" uid="uid://bst7pbtwe4mop" path="res://resources/waves/wave_data.gd" id="1_cx7cn"]
+[ext_resource type="Script" uid="uid://cm3fr3a2qascq" path="res://resources/waves/wave_unit_data.gd" id="2_78wao"]
+[ext_resource type="PackedScene" uid="uid://b4e7q33xixefa" path="res://scenes/unit/enemy/enemy_chaser_slow.tscn" id="3_a0tld"]
+[ext_resource type="PackedScene" uid="uid://bxj0vsoce8j40" path="res://scenes/unit/enemy/enemy_chaser_mid.tscn" id="4_1g00u"]
+[ext_resource type="PackedScene" uid="uid://klee8qrodifa" path="res://scenes/unit/enemy/enemy_chaser_fast.tscn" id="5_jn2r4"]
+[ext_resource type="PackedScene" uid="uid://bmly4taxkg73t" path="res://scenes/unit/enemy/enemy_charger.tscn" id="6_charger"]
+[ext_resource type="PackedScene" uid="uid://bjtqmtfqxufqq" path="res://scenes/unit/enemy/enemy_shooter.tscn" id="7_shooter"]
+
+[sub_resource type="Resource" id="Resource_slow"]
+script = ExtResource("2_78wao")
+unit_scene = ExtResource("3_a0tld")
+weight = 6.0
+
+[sub_resource type="Resource" id="Resource_mid"]
+script = ExtResource("2_78wao")
+unit_scene = ExtResource("4_1g00u")
+weight = 3.0
+
+[sub_resource type="Resource" id="Resource_fast"]
+script = ExtResource("2_78wao")
+unit_scene = ExtResource("5_jn2r4")
+weight = 2.0
+
+[sub_resource type="Resource" id="Resource_charger"]
+script = ExtResource("2_78wao")
+unit_scene = ExtResource("6_charger")
+weight = 1.0
+
+[sub_resource type="Resource" id="Resource_shooter"]
+script = ExtResource("2_78wao")
+unit_scene = ExtResource("7_shooter")
+weight = 1.2
+
+[resource]
+script = ExtResource("1_cx7cn")
+from = 8
+to = 8
+wave_time = 30.0
+units = Array[ExtResource("2_78wao")]([SubResource("Resource_slow"), SubResource("Resource_mid"), SubResource("Resource_fast"), SubResource("Resource_charger"), SubResource("Resource_shooter")])
+spawn_type = 0
+fixed_spawn_time = 0.8
+min_spawn_time = 0.5
+max_spawn_time = 2.0
