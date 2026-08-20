@@ -1,0 +1,13 @@
+res://scenes/ui/selection_panel/selection_card.gd
+res://scenes/ui/selection_panel/selection_card.tscn
+res://resources/waves/data/wave_1_to_5.tres
+res://shaders/outline.gdshader
+res://scenes/components/hitbox_component.gd
+res://scenes/ui/item_card/item_card.gd
+res://scenes/weapons/range/range_behavior.gd
+res://scenes/ui/shop_card/shop_card.gd
+res://scenes/ui/upgrade_card/upgrade_card.gd
+res://scenes/ui/shop_panel/shop_panel.tscn
+res://scenes/ui/shop_panel/shop_panel.gd
+res://scenes/ui/selection_panel/selection_panel.gd
+res://scenes/arena/arena.tscn

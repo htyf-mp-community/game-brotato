@@ -1,0 +1,8 @@
+[gd_resource type="FontVariation" load_steps=3 format=3 uid="uid://cuifontwithcjk"]
+
+[ext_resource type="FontFile" uid="uid://kfh6ooeul77g" path="res://assets/font/Bake Soda.otf" id="1_base"]
+[ext_resource type="FontFile" uid="uid://bqngq27m8pq6x" path="res://assets/font/NotoSansSC-Regular.otf" id="2_cjk"]
+
+[resource]
+base_font = ExtResource("1_base")
+fallbacks = Array[Font]([ExtResource("2_cjk")])

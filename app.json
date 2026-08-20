@@ -1,0 +1,12 @@
+{
+  "htyf": {
+    "type": "game",
+    "name": "Brotato",
+    "version": "1.0.97",
+    "appid": "htyfappf49da0bb73f392e688e9754211",
+    "rotate": "landscape",
+    "appUrlConfig": "https://xxxxx/app.json",
+    "zipUrl": "https://xxxxx/dist.[PLATFORM].dgz",
+    "projectname": "小程序"
+  }
+}

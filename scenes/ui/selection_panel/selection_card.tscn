@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=3 uid="uid://dnablojs1s8"]
+
+[ext_resource type="StyleBox" uid="uid://dn43vff5bgab1" path="res://styles/common_style.tres" id="1_rnf3l"]
+[ext_resource type="Script" uid="uid://d33k1qylqxfbj" path="res://scenes/ui/selection_panel/selection_card.gd" id="2_61x6i"]
+
+[node name="SelectionCard" type="Button"]
+custom_minimum_size = Vector2(128, 128)
+theme_override_styles/normal = ExtResource("1_rnf3l")
+icon_alignment = 1
+expand_icon = true
+script = ExtResource("2_61x6i")
+
+[connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
+[connection signal="pressed" from="." to="." method="_on_pressed"]

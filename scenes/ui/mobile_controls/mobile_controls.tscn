@@ -1,0 +1,89 @@
+[gd_scene load_steps=6 format=3 uid="uid://n0did0o1v8wm"]
+
+[ext_resource type="Script" uid="uid://c4kkmllou2vek" path="res://scenes/ui/mobile_controls/mobile_controls.gd" id="1_fv0ut"]
+[ext_resource type="Script" uid="uid://cisamarm4na5u" path="res://scenes/ui/mobile_controls/virtual_joystick.gd" id="2_4442d"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gjct5"]
+content_margin_left = 8.0
+content_margin_top = 8.0
+content_margin_right = 8.0
+content_margin_bottom = 8.0
+bg_color = Color(0.05, 0.16, 0.22, 0.72)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color(0.09, 0.62, 0.75, 0.95)
+corner_radius_top_left = 80
+corner_radius_top_right = 80
+corner_radius_bottom_right = 80
+corner_radius_bottom_left = 80
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_m1ja8"]
+content_margin_left = 8.0
+content_margin_top = 8.0
+content_margin_right = 8.0
+content_margin_bottom = 8.0
+bg_color = Color(0.09, 0.62, 0.75, 0.95)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 80
+corner_radius_top_right = 80
+corner_radius_bottom_right = 80
+corner_radius_bottom_left = 80
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_obh40"]
+content_margin_left = 8.0
+content_margin_top = 8.0
+content_margin_right = 8.0
+content_margin_bottom = 8.0
+bg_color = Color(0.09, 0.62, 0.75, 0.85)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color(0.35, 0.78, 0.85, 1)
+corner_radius_top_left = 80
+corner_radius_top_right = 80
+corner_radius_bottom_right = 80
+corner_radius_bottom_left = 80
+
+[node name="MobileControls" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+script = ExtResource("1_fv0ut")
+
+[node name="VirtualJoystick" type="Control" parent="."]
+unique_name_in_owner = true
+layout_mode = 1
+anchor_right = 0.5
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("2_4442d")
+
+[node name="DashButton" type="Button" parent="."]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(160, 160)
+layout_mode = 0
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -208.0
+offset_top = -208.0
+offset_right = -48.0
+offset_bottom = -48.0
+focus_mode = 0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 36
+theme_override_styles/normal = SubResource("StyleBoxFlat_gjct5")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_m1ja8")
+theme_override_styles/hover = SubResource("StyleBoxFlat_obh40")
+text = "冲刺"

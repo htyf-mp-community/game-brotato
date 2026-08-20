@@ -1,0 +1,22 @@
+[gd_resource type="Resource" script_class="UnitStats" load_steps=3 format=3 uid="uid://bot26fxolfx55"]
+
+[ext_resource type="Texture2D" uid="uid://d1ou504pylric" path="res://assets/sprites/Enemies/Enemy_1.png" id="1_cneyk"]
+[ext_resource type="Script" uid="uid://dslkq61ggb3ft" path="res://resources/units/unit_stats.gd" id="1_m42qi"]
+
+[resource]
+script = ExtResource("1_m42qi")
+name = "慢速追击者"
+type = 1
+icon = ExtResource("1_cneyk")
+health = 4
+health_increase_per_wave = 1.0
+damage = 1.0
+damage_increase_per_wave = 1.0
+speed = 300
+luck = 1.0
+block_chance = 0.0
+gold_drop = 1
+hp_regen = 0.0
+life_steal = 0.0
+harvesting = 0.0
+metadata/_custom_type_script = "uid://dslkq61ggb3ft"

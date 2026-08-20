@@ -1,0 +1,113 @@
+[gd_scene load_steps=22 format=3 uid="uid://bjhraywhhpn3h"]
+
+[ext_resource type="Texture2D" uid="uid://cy4xfx762bxgb" path="res://assets/sprites/BG.png" id="1_5tue2"]
+[ext_resource type="Script" uid="uid://fylssyuoxjey" path="res://scenes/arena/arena.gd" id="1_asdgj"]
+[ext_resource type="Texture2D" uid="uid://ov4fmsbglo55" path="res://assets/sprites/Map.png" id="2_aj7ud"]
+[ext_resource type="Resource" uid="uid://cy0wv0o4fyk46" path="res://resources/waves/data/wave_1_to_5.tres" id="2_u52cf"]
+[ext_resource type="Script" uid="uid://xik4iqa2n4lo" path="res://scenes/arena/camera_2d.gd" id="4_aj7ud"]
+[ext_resource type="Script" uid="uid://c1r0p6xkr6l1v" path="res://scenes/arena/spawner.gd" id="7_6w4xk"]
+[ext_resource type="Script" uid="uid://bst7pbtwe4mop" path="res://resources/waves/wave_data.gd" id="8_2ml6w"]
+[ext_resource type="Script" uid="uid://dslkq61ggb3ft" path="res://resources/units/unit_stats.gd" id="9_fv88w"]
+[ext_resource type="Resource" uid="uid://cxvbykjlw4gle" path="res://resources/units/enemies/stats_enemy_charger.tres" id="10_w4nra"]
+[ext_resource type="Resource" uid="uid://c52c4qj5v27y1" path="res://resources/units/enemies/stats_enemy_chaser_fast.tres" id="11_t3vx8"]
+[ext_resource type="Resource" uid="uid://dpgg6c8kxhpvl" path="res://resources/units/enemies/stats_enemy_chaser_mid.tres" id="12_rhjlh"]
+[ext_resource type="Resource" uid="uid://bot26fxolfx55" path="res://resources/units/enemies/stats_enemy_chaser_slow.tres" id="13_tp84n"]
+[ext_resource type="Resource" uid="uid://bh5b84v18vdto" path="res://resources/units/enemies/stats_enemy_shooter.tres" id="14_8kk48"]
+[ext_resource type="PackedScene" uid="uid://yaqp467r4aub" path="res://scenes/ui/coins_bag/coins_bag.tscn" id="15_rhjlh"]
+[ext_resource type="PackedScene" uid="uid://d88phqluv8gk" path="res://scenes/ui/upgrade_panel/upgrade_panel.tscn" id="15_w4nra"]
+[ext_resource type="PackedScene" uid="uid://ck8hfiuq31k2l" path="res://scenes/ui/shop_panel/shop_panel.tscn" id="16_t3vx8"]
+[ext_resource type="AudioStream" uid="uid://prc8bub0x4s1" path="res://assets/audio/Bg Music.mp3" id="18_8kk48"]
+[ext_resource type="PackedScene" uid="uid://be4y0ch5v7qa5" path="res://scenes/ui/selection_panel/selection_panel.tscn" id="18_tp84n"]
+[ext_resource type="PackedScene" uid="uid://n0did0o1v8wm" path="res://scenes/ui/mobile_controls/mobile_controls.tscn" id="18_wqbss"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_6w4xk"]
+font_size = 64
+
+[sub_resource type="LabelSettings" id="LabelSettings_2ml6w"]
+font_size = 64
+
+[node name="Arena" type="Node2D"]
+script = ExtResource("1_asdgj")
+normal_color = Color(1, 1, 1, 1)
+blocked_color = Color(1, 0.290196, 0.454902, 1)
+critical_color = Color(0.996078, 0.780392, 0.380392, 1)
+hp_color = Color(0, 0.627451, 0.482353, 1)
+
+[node name="BlackBG" type="Sprite2D" parent="."]
+scale = Vector2(2, 2)
+texture = ExtResource("1_5tue2")
+
+[node name="GrassBG" type="Sprite2D" parent="."]
+scale = Vector2(2, 2)
+texture = ExtResource("2_aj7ud")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+script = ExtResource("4_aj7ud")
+
+[node name="Spawner" type="Node2D" parent="."]
+script = ExtResource("7_6w4xk")
+waves_data = Array[ExtResource("8_2ml6w")]([ExtResource("2_u52cf")])
+enemy_collection = Array[ExtResource("9_fv88w")]([ExtResource("10_w4nra"), ExtResource("11_t3vx8"), ExtResource("12_rhjlh"), ExtResource("13_tp84n"), ExtResource("14_8kk48")])
+
+[node name="SpawnTimer" type="Timer" parent="Spawner"]
+one_shot = true
+
+[node name="WaveTimer" type="Timer" parent="Spawner"]
+one_shot = true
+
+[node name="GameUI" type="CanvasLayer" parent="."]
+
+[node name="CoinsBag" parent="GameUI" instance=ExtResource("15_rhjlh")]
+unique_name_in_owner = true
+
+[node name="WaveIndexLabel" type="Label" parent="GameUI"]
+unique_name_in_owner = true
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -27.5
+offset_top = 20.0
+offset_right = 27.5
+offset_bottom = 39.3333
+grow_horizontal = 2
+text = "第 1 波"
+label_settings = SubResource("LabelSettings_6w4xk")
+
+[node name="WaveTimeLabel" type="Label" parent="GameUI"]
+unique_name_in_owner = true
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -27.5
+offset_top = 100.0
+offset_right = 27.5
+offset_bottom = 119.333
+grow_horizontal = 2
+text = "10"
+label_settings = SubResource("LabelSettings_2ml6w")
+
+[node name="UpgradePanel" parent="GameUI" instance=ExtResource("15_w4nra")]
+unique_name_in_owner = true
+visible = false
+
+[node name="ShopPanel" parent="GameUI" instance=ExtResource("16_t3vx8")]
+unique_name_in_owner = true
+visible = false
+
+[node name="SelectionPanel" parent="GameUI" instance=ExtResource("18_tp84n")]
+
+[node name="MobileControls" parent="GameUI" instance=ExtResource("18_wqbss")]
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MusicPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("18_8kk48")
+volume_db = -30.0
+autoplay = true
+bus = &"Music"
+
+[connection signal="on_wave_completed" from="Spawner" to="." method="_on_spawner_on_wave_completed"]
+[connection signal="timeout" from="Spawner/SpawnTimer" to="Spawner" method="_on_spawn_timer_timeout"]
+[connection signal="timeout" from="Spawner/WaveTimer" to="Spawner" method="_on_wave_timer_timeout"]
+[connection signal="on_shop_next_wave" from="GameUI/ShopPanel" to="." method="_on_shop_panel_on_shop_next_wave"]
+[connection signal="on_selection_completed" from="GameUI/SelectionPanel" to="." method="_on_selection_panel_on_selection_completed"]
