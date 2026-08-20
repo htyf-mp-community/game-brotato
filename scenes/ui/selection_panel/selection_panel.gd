@@ -81,3 +81,9 @@ func _on_continue_buttom_pressed() -> void:
 	
 	on_selection_completed.emit()
 	hide()
+
+
+func prepare_for_new_run() -> void:
+	show_player_info(false)
+	_update_continue_button()
+	show()

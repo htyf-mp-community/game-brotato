@@ -13,6 +13,8 @@ class_name Arena
 @onready var upgrade_panel: UpgradePanel = %UpgradePanel
 @onready var shop_panel: ShopPanel = %ShopPanel
 @onready var coins_bag: CoinsBag = %CoinsBag
+@onready var selection_panel: SelectionPanel = %SelectionPanel
+@onready var result_panel: ResultPanel = %ResultPanel
 
 var gold_list: Array[Coins]
 
@@ -22,6 +24,8 @@ func _ready() -> void:
 	Global.on_upgrade_selected.connect(_on_upgrade_selected)
 	Global.on_create_heal_text.connect(_on_create_heal_text)
 	Global.on_enemy_died.connect(_on_enemy_died)
+	Global.run_state.capture_enemy_baselines(spawner.enemy_collection)
+	Global.coins = RunState.STARTING_COINS
 
 
 func _process(delta: float) -> void:
@@ -76,6 +80,37 @@ func spawn_coins(enemy: Enemy) -> void:
 	call_deferred("add_child", gold_instance)
 
 
+func _show_result_victory() -> void:
+	Global.game_paused = true
+	spawner.stop_wave()
+	upgrade_panel.hide()
+	shop_panel.hide()
+	result_panel.show_victory()
+
+
+func _on_player_died() -> void:
+	if result_panel.visible:
+		return
+	Global.game_paused = true
+	spawner.stop_wave()
+	upgrade_panel.hide()
+	shop_panel.hide()
+	result_panel.show_defeat(spawner.wave_index)
+
+
+func _return_to_selection() -> void:
+	result_panel.hide()
+	upgrade_panel.hide()
+	shop_panel.hide()
+	shop_panel.clear_run_items()
+	if is_instance_valid(Global.player):
+		Global.player.queue_free()
+	Global.reset_run()
+	spawner.reset_for_new_run()
+	clean_arena()
+	selection_panel.prepare_for_new_run()
+
+
 func _on_create_block_text(unit: Node2D) -> void:
 	var text := create_floating_text(unit)
 	text.setup("格挡!", blocked_color)
@@ -99,9 +134,15 @@ func _on_upgrade_selected() -> void:
 
 
 func _on_spawner_on_wave_completed() -> void:
-	if not Global.player: return
+	if not is_instance_valid(Global.player):
+		return
 	clean_arena()
+	if spawner.is_final_wave():
+		_show_result_victory()
+		return
 	await get_tree().create_timer(1.0).timeout
+	if not is_instance_valid(Global.player):
+		return
 	show_upgrades()
 	clean_arena()
 
@@ -119,8 +160,13 @@ func _on_selection_panel_on_selection_completed() -> void:
 	var player := Global.get_selected_player()
 	add_child(player)
 	player.add_weapon(Global.main_weapon_selected)
+	player.health_component.on_unit_died.connect(_on_player_died)
 	shop_panel.create_item_weapon(Global.main_weapon_selected)
 	Global.equipped_weapons.append(Global.main_weapon_selected)
 	
 	spawner.start_wave()
 	Global.game_paused = false
+
+
+func _on_result_panel_on_retry_pressed() -> void:
+	_return_to_selection()

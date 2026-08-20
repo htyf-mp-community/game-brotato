@@ -92,6 +92,29 @@ func get_wave_text() -> String:
 	return "第 %s 波" % wave_index
 
 
+func get_last_wave_index() -> int:
+	var last := 0
+	for wave in waves_data:
+		if wave:
+			last = maxi(last, wave.to)
+	return last
+
+
+func is_final_wave() -> bool:
+	return RunState.is_final_wave(wave_index, get_last_wave_index())
+
+
+func stop_wave() -> void:
+	spawn_timer.stop()
+	wave_timer.stop()
+
+
+func reset_for_new_run() -> void:
+	wave_index = 1
+	stop_wave()
+	clear_enemies()
+
+
 func get_wave_timer_text() -> String:
 	return str(max(0, int(wave_timer.time_left)))
 
@@ -110,4 +133,5 @@ func _on_wave_timer_timeout() -> void:
 	on_wave_completed.emit()
 	spawn_timer.stop()
 	clear_enemies()
-	update_enemies_new_wave()
+	if not is_final_wave():
+		update_enemies_new_wave()

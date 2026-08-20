@@ -18,6 +18,8 @@ var is_dashing := false
 var dash_available := true
 
 func _ready() -> void:
+    if stats:
+        stats = stats.duplicate()
     super._ready()
     dash_timer.wait_time = dash_duration
     dash_cooldown_timer.wait_time = dash_cooldown

@@ -53,7 +53,7 @@ enum UpgradeTier{
 	LEGENDARY
 }
 
-var coins: int = 500
+var coins: int = RunState.STARTING_COINS
 var player: Player
 var game_paused := false
 var joystick_vector := Vector2.ZERO
@@ -63,8 +63,23 @@ var main_player_selected: UnitStats
 var main_weapon_selected: ItemWeapon
 
 var equipped_weapons: Array[ItemWeapon]
+var run_state := RunState.new()
+
+
+func reset_run() -> void:
+	coins = RunState.STARTING_COINS
+	equipped_weapons.clear()
+	main_player_selected = null
+	main_weapon_selected = null
+	player = null
+	game_paused = true
+	joystick_vector = Vector2.ZERO
+	dash_just_pressed = false
+	run_state.restore_enemy_baselines()
 
 func get_harvesting_coins() -> void:
+	if not is_instance_valid(player):
+		return
 	coins += player.stats.harvesting
 
 

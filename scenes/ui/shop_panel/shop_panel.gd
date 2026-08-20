@@ -144,3 +144,13 @@ func _on_sell_button_pressed() -> void:
 	context_card = null
 	
 	Global.coins += coins
+
+
+func clear_run_items() -> void:
+	for child in items_container.get_children():
+		child.queue_free()
+	for child in passives_container.get_children():
+		child.queue_free()
+	for child in weapons_container.get_children():
+		child.queue_free()
+	context_card = null
