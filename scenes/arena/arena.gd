@@ -19,6 +19,7 @@ class_name Arena
 @onready var pause_button: Button = %PauseButton
 @onready var pause_panel: PausePanel = %PausePanel
 @onready var music_player: AudioStreamPlayer = $MusicPlayer
+@onready var host_sdk: _HtyfSdk = $"HTYF-SDK"
 
 var gold_list: Array[Coins]
 
@@ -33,6 +34,7 @@ func _ready() -> void:
 	_refresh_wave_hud(false)
 	_refresh_pause_button()
 	_apply_bgm()
+	_bind_host_lifecycle()
 
 
 func _process(delta: float) -> void:
@@ -273,3 +275,20 @@ func _apply_bgm() -> void:
 			music_player.play()
 	else:
 		music_player.stream_paused = true
+
+
+func _bind_host_lifecycle() -> void:
+	if host_sdk == null:
+		return
+	host_sdk.set_host_lifecycle_callback(_on_host_lifecycle)
+
+
+func _on_host_lifecycle(what: int) -> void:
+	if not is_node_ready():
+		return
+	if PauseRules.is_host_background_event(what):
+		open_combat_pause()
+
+
+func _notification(what: int) -> void:
+	_on_host_lifecycle(what)

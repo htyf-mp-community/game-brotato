@@ -16,3 +16,7 @@ static func pause_title() -> String:
 
 static func abandon_confirm_title() -> String:
 	return "确定放弃？"
+
+
+static func is_host_background_event(what: int) -> bool:
+	return what == MainLoop.NOTIFICATION_APPLICATION_PAUSED or what == MainLoop.NOTIFICATION_APPLICATION_FOCUS_OUT

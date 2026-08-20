@@ -1,4 +1,4 @@
-[gd_scene load_steps=30 format=3 uid="uid://bjhraywhhpn3h"]
+[gd_scene load_steps=31 format=3 uid="uid://bjhraywhhpn3h"]
 
 [ext_resource type="Texture2D" uid="uid://cy4xfx762bxgb" path="res://assets/sprites/BG.png" id="1_5tue2"]
 [ext_resource type="Script" uid="uid://fylssyuoxjey" path="res://scenes/arena/arena.gd" id="1_asdgj"]
@@ -24,6 +24,7 @@
 [ext_resource type="PackedScene" uid="uid://n0did0o1v8wm" path="res://scenes/ui/mobile_controls/mobile_controls.tscn" id="18_wqbss"]
 [ext_resource type="PackedScene" uid="uid://cavmr0jgfsjow" path="res://scenes/ui/result_panel/result_panel.tscn" id="19_wqbss"]
 [ext_resource type="PackedScene" uid="uid://14vqn4lktl0r" path="res://scenes/ui/pause_panel/pause_panel.tscn" id="23_l0cts"]
+[ext_resource type="PackedScene" uid="uid://bkvkvfya6xfan" path="res://_HTYF_SDK/htyf_sdk.tscn" id="25_ybinm"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_6w4xk"]
 font_size = 64
@@ -220,6 +221,8 @@ grow_vertical = 2
 stream = ExtResource("18_8kk48")
 volume_db = -30.0
 bus = &"Music"
+
+[node name="HTYF-SDK" parent="." instance=ExtResource("25_ybinm")]
 
 [connection signal="on_wave_completed" from="Spawner" to="." method="_on_spawner_on_wave_completed"]
 [connection signal="timeout" from="Spawner/SpawnTimer" to="Spawner" method="_on_spawn_timer_timeout"]
