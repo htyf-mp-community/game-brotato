@@ -120,6 +120,7 @@ layout_mode = 2
 theme_override_constants/separation = 36
 
 [node name="TitleLabel" type="Label" parent="Center/Content"]
+unique_name_in_owner = true
 layout_mode = 2
 theme_override_font_sizes/font_size = 96
 text = "暂停"
@@ -161,7 +162,29 @@ theme_override_styles/normal = SubResource("StyleBoxFlat_5ywkb")
 theme_override_styles/hover = SubResource("StyleBoxFlat_8wkre")
 text = "放弃本局"
 
+[node name="ConfirmAbandonButton" type="Button" parent="Center/Content"]
+unique_name_in_owner = true
+visible = false
+custom_minimum_size = Vector2(480, 96)
+layout_mode = 2
+theme_override_font_sizes/font_size = 48
+theme_override_styles/normal = SubResource("StyleBoxFlat_5ywkb")
+theme_override_styles/hover = SubResource("StyleBoxFlat_8wkre")
+text = "确定"
+
+[node name="CancelAbandonButton" type="Button" parent="Center/Content"]
+unique_name_in_owner = true
+visible = false
+custom_minimum_size = Vector2(480, 96)
+layout_mode = 2
+theme_override_font_sizes/font_size = 48
+theme_override_styles/normal = SubResource("StyleBoxFlat_5ywkb")
+theme_override_styles/hover = SubResource("StyleBoxFlat_8wkre")
+text = "取消"
+
 [connection signal="pressed" from="Center/Content/ContinueButton" to="." method="_on_continue_button_pressed"]
 [connection signal="pressed" from="Center/Content/MusicButton" to="." method="_on_music_button_pressed"]
 [connection signal="pressed" from="Center/Content/SfxButton" to="." method="_on_sfx_button_pressed"]
-[connection signal="pressed" from="Center/Content/AbandonButton" to="." method="_on_placeholder_button_pressed"]
+[connection signal="pressed" from="Center/Content/AbandonButton" to="." method="_on_abandon_button_pressed"]
+[connection signal="pressed" from="Center/Content/CancelAbandonButton" to="." method="_on_cancel_abandon_button_pressed"]
+[connection signal="pressed" from="Center/Content/ConfirmAbandonButton" to="." method="_on_confirm_abandon_button_pressed"]

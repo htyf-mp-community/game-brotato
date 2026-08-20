@@ -236,6 +236,7 @@ func open_combat_pause() -> void:
 	Global.game_paused = true
 	spawner.set_combat_clock_paused(true)
 	pause_panel.show()
+	pause_panel.set_abandon_confirming(false)
 	pause_panel.refresh_audio_buttons()
 	_refresh_pause_button()
 	_apply_bgm()
@@ -258,6 +259,10 @@ func _on_pause_button_pressed() -> void:
 
 func _on_pause_panel_on_continue_pressed() -> void:
 	resume_combat()
+
+
+func _on_pause_panel_on_abandon_confirmed() -> void:
+	_return_to_selection()
 
 
 func _apply_bgm() -> void:

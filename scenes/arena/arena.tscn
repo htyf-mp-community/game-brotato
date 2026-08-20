@@ -228,4 +228,5 @@ bus = &"Music"
 [connection signal="on_shop_next_wave" from="GameUI/ShopPanel" to="." method="_on_shop_panel_on_shop_next_wave"]
 [connection signal="on_selection_completed" from="GameUI/SelectionPanel" to="." method="_on_selection_panel_on_selection_completed"]
 [connection signal="on_retry_pressed" from="GameUI/ResultPanel" to="." method="_on_result_panel_on_retry_pressed"]
+[connection signal="on_abandon_confirmed" from="GameUI/PausePanel" to="." method="_on_pause_panel_on_abandon_confirmed"]
 [connection signal="on_continue_pressed" from="GameUI/PausePanel" to="." method="_on_pause_panel_on_continue_pressed"]
