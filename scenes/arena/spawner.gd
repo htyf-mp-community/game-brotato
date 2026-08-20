@@ -89,7 +89,7 @@ func clear_enemies() -> void:
 
 
 func get_wave_text() -> String:
-	return "第 %s 波" % wave_index
+	return WaveHud.format_wave_text(wave_index, get_last_wave_index())
 
 
 func get_last_wave_index() -> int:

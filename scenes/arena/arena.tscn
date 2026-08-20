@@ -3,9 +3,9 @@
 [ext_resource type="Texture2D" uid="uid://cy4xfx762bxgb" path="res://assets/sprites/BG.png" id="1_5tue2"]
 [ext_resource type="Script" uid="uid://fylssyuoxjey" path="res://scenes/arena/arena.gd" id="1_asdgj"]
 [ext_resource type="Texture2D" uid="uid://ov4fmsbglo55" path="res://assets/sprites/Map.png" id="2_aj7ud"]
-[ext_resource type="Resource" uid="uid://cy0wv0o4fyk46" path="res://resources/waves/data/wave_1_to_5.tres" id="2_u52cf"]
 [ext_resource type="Script" uid="uid://xik4iqa2n4lo" path="res://scenes/arena/camera_2d.gd" id="4_aj7ud"]
 [ext_resource type="Script" uid="uid://c1r0p6xkr6l1v" path="res://scenes/arena/spawner.gd" id="7_6w4xk"]
+[ext_resource type="Resource" path="res://resources/waves/data/wave_1_to_8.tres" id="7_wqbss"]
 [ext_resource type="Script" uid="uid://bst7pbtwe4mop" path="res://resources/waves/wave_data.gd" id="8_2ml6w"]
 [ext_resource type="Script" uid="uid://dslkq61ggb3ft" path="res://resources/units/unit_stats.gd" id="9_fv88w"]
 [ext_resource type="Resource" uid="uid://cxvbykjlw4gle" path="res://resources/units/enemies/stats_enemy_charger.tres" id="10_w4nra"]
@@ -47,7 +47,7 @@ script = ExtResource("4_aj7ud")
 
 [node name="Spawner" type="Node2D" parent="."]
 script = ExtResource("7_6w4xk")
-waves_data = Array[ExtResource("8_2ml6w")]([ExtResource("2_u52cf")])
+waves_data = Array[ExtResource("8_2ml6w")]([ExtResource("7_wqbss")])
 enemy_collection = Array[ExtResource("9_fv88w")]([ExtResource("10_w4nra"), ExtResource("11_t3vx8"), ExtResource("12_rhjlh"), ExtResource("13_tp84n"), ExtResource("14_8kk48")])
 
 [node name="SpawnTimer" type="Timer" parent="Spawner"]
@@ -66,13 +66,14 @@ unique_name_in_owner = true
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
-offset_left = -27.5
+offset_left = -280.0
 offset_top = 20.0
-offset_right = 27.5
+offset_right = 280.0
 offset_bottom = 39.3333
 grow_horizontal = 2
-text = "第 1 波"
+text = "第 1 / 8 波"
 label_settings = SubResource("LabelSettings_6w4xk")
+horizontal_alignment = 1
 
 [node name="WaveTimeLabel" type="Label" parent="GameUI"]
 unique_name_in_owner = true
@@ -80,12 +81,64 @@ anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
 offset_left = -27.5
-offset_top = 100.0
+offset_top = 110.0
 offset_right = 27.5
 offset_bottom = 119.333
 grow_horizontal = 2
-text = "10"
+text = "30"
 label_settings = SubResource("LabelSettings_2ml6w")
+
+[node name="WavePips" type="HBoxContainer" parent="GameUI"]
+unique_name_in_owner = true
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -107.0
+offset_top = 78.0
+offset_right = 107.0
+offset_bottom = 96.0
+theme_override_constants/separation = 10
+alignment = 1
+
+[node name="Pip1" type="ColorRect" parent="GameUI/WavePips"]
+custom_minimum_size = Vector2(18, 18)
+layout_mode = 2
+color = Color(0.22, 0.22, 0.22, 1)
+
+[node name="Pip2" type="ColorRect" parent="GameUI/WavePips"]
+custom_minimum_size = Vector2(18, 18)
+layout_mode = 2
+color = Color(0.22, 0.22, 0.22, 1)
+
+[node name="Pip3" type="ColorRect" parent="GameUI/WavePips"]
+custom_minimum_size = Vector2(18, 18)
+layout_mode = 2
+color = Color(0.22, 0.22, 0.22, 1)
+
+[node name="Pip4" type="ColorRect" parent="GameUI/WavePips"]
+custom_minimum_size = Vector2(18, 18)
+layout_mode = 2
+color = Color(0.22, 0.22, 0.22, 1)
+
+[node name="Pip5" type="ColorRect" parent="GameUI/WavePips"]
+custom_minimum_size = Vector2(18, 18)
+layout_mode = 2
+color = Color(0.22, 0.22, 0.22, 1)
+
+[node name="Pip6" type="ColorRect" parent="GameUI/WavePips"]
+custom_minimum_size = Vector2(18, 18)
+layout_mode = 2
+color = Color(0.22, 0.22, 0.22, 1)
+
+[node name="Pip7" type="ColorRect" parent="GameUI/WavePips"]
+custom_minimum_size = Vector2(18, 18)
+layout_mode = 2
+color = Color(0.22, 0.22, 0.22, 1)
+
+[node name="Pip8" type="ColorRect" parent="GameUI/WavePips"]
+custom_minimum_size = Vector2(18, 18)
+layout_mode = 2
+color = Color(0.22, 0.22, 0.22, 1)
 
 [node name="UpgradePanel" parent="GameUI" instance=ExtResource("15_w4nra")]
 unique_name_in_owner = true
@@ -99,8 +152,6 @@ visible = false
 unique_name_in_owner = true
 
 [node name="MobileControls" parent="GameUI" instance=ExtResource("18_wqbss")]
-grow_horizontal = 2
-grow_vertical = 2
 
 [node name="ResultPanel" parent="GameUI" instance=ExtResource("19_wqbss")]
 unique_name_in_owner = true

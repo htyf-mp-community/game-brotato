@@ -88,8 +88,8 @@
 
 - [x] `HealthComponent.die()` 对玩家不要只 `queue_free` 后无下文（`scenes/components/health_component.gd`）
 - [x] 失败 UI：失败 + 死于第 x 波 + 再来一局
-- [x] 胜利 UI：当前配置的最后一波表走完且人活着 → 胜利 + 再来一局（现为第 5 波；8 波见工单 02）
-- [ ] 第 8 波结束 **跳过** 升级和商店，走胜利
+- [x] 胜利 UI：当前配置的最后一波表走完且人活着 → 胜利 + 再来一局
+- [x] 第 8 波结束 **跳过** 升级和商店，走胜利
 - [x] 结算时暂停玩法、隐藏虚拟摇杆（沿用 `Global.game_paused` / 无玩家时隐藏控件）
 - [x] 按钮可点、横屏触控够大
 
@@ -97,16 +97,16 @@
 
 现有仅 `resources/waves/data/wave_1_to_5.tres`（5 波 × 10 秒，只用三种追击者）。
 
-- [ ] 波时长改为 30 秒，有效波次 1–8
-- [ ] 1–4 波：慢/中/快追击者（可沿用现有权重作起点）
+- [x] 波时长改为 30 秒，有效波次 1–8
+- [x] 1–4 波：慢/中/快追击者（可沿用现有权重作起点）
 - [ ] 5–6 波：加入少量 `enemy_charger.tscn`
 - [ ] 7–8 波：再加少量 `enemy_shooter.tscn`（第 8 波两种都有，权重低）
-- [ ] Arena 的 `waves_data` 挂上全部所需 `WaveData`
-- [ ] 出怪间隔仍约 0.8 秒（`FIXED`）
+- [x] Arena 的 `waves_data` 挂上全部所需 `WaveData`
+- [x] 出怪间隔仍约 0.8 秒（`FIXED`）
 
 ### 4. 数值（第一次能通关）
 
-- [ ] 五种敌人的 `health_increase_per_wave` / `damage_increase_per_wave` 调到 0 或接近 0  
+- [x] 五种敌人的 `health_increase_per_wave` / `damage_increase_per_wave` 调到 0 或接近 0  
   - `resources/units/enemies/stats_enemy_*.tres`
 - [ ] 按 15 血角色验：被冲锋/射击不能两下空血
 - [ ] 后半波若要加压：提高快速追击者权重，而不是加单体伤害
@@ -114,10 +114,10 @@
 
 ### 5. HUD：第 x / 8 波 + 8 个点
 
-- [ ] `get_wave_text()` 改为「第 x / 8 波」（`scenes/arena/spawner.gd` / `arena.gd`）
-- [ ] 8 个点：已完成亮、当前波高亮、未到暗
-- [ ] 升级/商店期间冻结（不要在暂停里被 `_process` 清掉或错跳）
-- [ ] 胜利时 8 个点全亮
+- [x] `get_wave_text()` 改为「第 x / 8 波」（`scenes/arena/spawner.gd` / `arena.gd`）
+- [x] 8 个点：已完成亮、当前波高亮、未到暗
+- [x] 升级/商店期间冻结（不要在暂停里被 `_process` 清掉或错跳）
+- [x] 胜利时 8 个点全亮
 
 ### 6. 商店 6 栏
 

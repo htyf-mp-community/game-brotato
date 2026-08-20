@@ -8,6 +8,7 @@ class_name Arena
 
 @onready var wave_index_label: Label = %WaveIndexLabel
 @onready var wave_time_label: Label = %WaveTimeLabel
+@onready var wave_pips: HBoxContainer = %WavePips
 
 @onready var spawner: Spawner = $Spawner
 @onready var upgrade_panel: UpgradePanel = %UpgradePanel
@@ -26,12 +27,31 @@ func _ready() -> void:
 	Global.on_enemy_died.connect(_on_enemy_died)
 	Global.run_state.capture_enemy_baselines(spawner.enemy_collection)
 	Global.coins = RunState.STARTING_COINS
+	_refresh_wave_hud(false)
 
 
 func _process(delta: float) -> void:
-	if Global.game_paused: return
-	wave_index_label.text = spawner.get_wave_text()
+	if Global.game_paused:
+		return
+	_refresh_wave_hud(false)
 	wave_time_label.text = spawner.get_wave_timer_text()
+
+
+func _refresh_wave_hud(wave_finished: bool) -> void:
+	var last_wave := spawner.get_last_wave_index()
+	wave_index_label.text = WaveHud.format_wave_text(spawner.wave_index, last_wave)
+	var pip_nodes := wave_pips.get_children()
+	for i in pip_nodes.size():
+		var pip := pip_nodes[i] as ColorRect
+		if pip == null:
+			continue
+		match WaveHud.pip_state(i + 1, spawner.wave_index, last_wave, wave_finished):
+			WaveHud.PipState.COMPLETED:
+				pip.color = Color(0.094, 0.624, 0.745)
+			WaveHud.PipState.CURRENT:
+				pip.color = Color(0.996, 0.78, 0.38)
+			_:
+				pip.color = Color(0.22, 0.22, 0.22)
 
 
 func create_floating_text(unit: Node2D) -> FloatingText:
@@ -85,6 +105,7 @@ func _show_result_victory() -> void:
 	spawner.stop_wave()
 	upgrade_panel.hide()
 	shop_panel.hide()
+	_refresh_wave_hud(true)
 	result_panel.show_victory()
 
 
@@ -109,6 +130,7 @@ func _return_to_selection() -> void:
 	spawner.reset_for_new_run()
 	clean_arena()
 	selection_panel.prepare_for_new_run()
+	_refresh_wave_hud(false)
 
 
 func _on_create_block_text(unit: Node2D) -> void:
@@ -137,6 +159,7 @@ func _on_spawner_on_wave_completed() -> void:
 	if not is_instance_valid(Global.player):
 		return
 	clean_arena()
+	_refresh_wave_hud(true)
 	if spawner.is_final_wave():
 		_show_result_victory()
 		return
