@@ -14,7 +14,24 @@ var sound_dictionary: Dictionary[Sound, Resource] = {
 
 @export var stream_players: Array[AudioStreamPlayer]
 
+var settings := AudioSettings.new()
+
+var music_enabled: bool:
+	get:
+		return settings.music_enabled
+
+var sfx_enabled: bool:
+	get:
+		return settings.sfx_enabled
+
+
+func _ready() -> void:
+	settings.load_from_path()
+
+
 func play_sound(type: int) -> void:
+	if not settings.sfx_enabled:
+		return
 	var stream := get_free_stream_player()
 	if not stream:
 		return
@@ -23,6 +40,20 @@ func play_sound(type: int) -> void:
 	stream.stream = audio
 	stream.pitch_scale = randf_range(0.8, 1.3)
 	stream.play()
+
+
+func toggle_music() -> void:
+	settings.music_enabled = not settings.music_enabled
+	settings.save_to_path()
+
+
+func toggle_sfx() -> void:
+	settings.sfx_enabled = not settings.sfx_enabled
+	if not settings.sfx_enabled:
+		for stream: AudioStreamPlayer in stream_players:
+			if stream and stream.playing:
+				stream.stop()
+	settings.save_to_path()
 
 
 func get_free_stream_player() -> AudioStreamPlayer:

@@ -219,7 +219,6 @@ grow_vertical = 2
 [node name="MusicPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("18_8kk48")
 volume_db = -30.0
-autoplay = true
 bus = &"Music"
 
 [connection signal="on_wave_completed" from="Spawner" to="." method="_on_spawner_on_wave_completed"]

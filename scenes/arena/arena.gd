@@ -18,6 +18,7 @@ class_name Arena
 @onready var result_panel: ResultPanel = %ResultPanel
 @onready var pause_button: Button = %PauseButton
 @onready var pause_panel: PausePanel = %PausePanel
+@onready var music_player: AudioStreamPlayer = $MusicPlayer
 
 var gold_list: Array[Coins]
 
@@ -31,6 +32,7 @@ func _ready() -> void:
 	Global.coins = RunState.STARTING_COINS
 	_refresh_wave_hud(false)
 	_refresh_pause_button()
+	_apply_bgm()
 
 
 func _process(delta: float) -> void:
@@ -138,6 +140,7 @@ func _return_to_selection() -> void:
 	clean_arena()
 	selection_panel.prepare_for_new_run()
 	_refresh_wave_hud(false)
+	_apply_bgm()
 
 
 func _on_create_block_text(unit: Node2D) -> void:
@@ -233,7 +236,9 @@ func open_combat_pause() -> void:
 	Global.game_paused = true
 	spawner.set_combat_clock_paused(true)
 	pause_panel.show()
+	pause_panel.refresh_audio_buttons()
 	_refresh_pause_button()
+	_apply_bgm()
 
 
 func resume_combat() -> void:
@@ -243,6 +248,7 @@ func resume_combat() -> void:
 	spawner.set_combat_clock_paused(false)
 	Global.game_paused = false
 	_refresh_pause_button()
+	_apply_bgm()
 
 
 func _on_pause_button_pressed() -> void:
@@ -252,3 +258,13 @@ func _on_pause_button_pressed() -> void:
 
 func _on_pause_panel_on_continue_pressed() -> void:
 	resume_combat()
+
+
+func _apply_bgm() -> void:
+	if AudioSettings.should_play_bgm(SoundManager.music_enabled, pause_panel.visible):
+		if music_player.playing:
+			music_player.stream_paused = false
+		else:
+			music_player.play()
+	else:
+		music_player.stream_paused = true

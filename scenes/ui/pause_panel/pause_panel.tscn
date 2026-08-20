@@ -141,7 +141,7 @@ layout_mode = 2
 theme_override_font_sizes/font_size = 48
 theme_override_styles/normal = SubResource("StyleBoxFlat_a3axx")
 theme_override_styles/hover = SubResource("StyleBoxFlat_35b4v")
-text = "音乐"
+text = "音乐 开"
 
 [node name="SfxButton" type="Button" parent="Center/Content"]
 unique_name_in_owner = true
@@ -150,7 +150,7 @@ layout_mode = 2
 theme_override_font_sizes/font_size = 48
 theme_override_styles/normal = SubResource("StyleBoxFlat_xnb25")
 theme_override_styles/hover = SubResource("StyleBoxFlat_xaa01")
-text = "音效"
+text = "音效 开"
 
 [node name="AbandonButton" type="Button" parent="Center/Content"]
 unique_name_in_owner = true
@@ -162,6 +162,6 @@ theme_override_styles/hover = SubResource("StyleBoxFlat_8wkre")
 text = "放弃本局"
 
 [connection signal="pressed" from="Center/Content/ContinueButton" to="." method="_on_continue_button_pressed"]
-[connection signal="pressed" from="Center/Content/MusicButton" to="." method="_on_placeholder_button_pressed"]
-[connection signal="pressed" from="Center/Content/SfxButton" to="." method="_on_placeholder_button_pressed"]
+[connection signal="pressed" from="Center/Content/MusicButton" to="." method="_on_music_button_pressed"]
+[connection signal="pressed" from="Center/Content/SfxButton" to="." method="_on_sfx_button_pressed"]
 [connection signal="pressed" from="Center/Content/AbandonButton" to="." method="_on_placeholder_button_pressed"]
