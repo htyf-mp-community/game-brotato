@@ -121,7 +121,7 @@
 
 ### 6. 商店 6 栏
 
-- [ ] 武器满 6 把时：禁止再买武器，**允许**买被动（`scenes/ui/shop_panel/shop_card.gd` 里 `equipped_weapons.size() >= 6` 直接 return 的逻辑）
+- [x] 武器满 6 把时：禁止再买武器，**允许**买被动
 
 ### 7. 验收（真机 / 编辑器）
 
