@@ -16,6 +16,8 @@ class_name Arena
 @onready var coins_bag: CoinsBag = %CoinsBag
 @onready var selection_panel: SelectionPanel = %SelectionPanel
 @onready var result_panel: ResultPanel = %ResultPanel
+@onready var pause_button: Button = %PauseButton
+@onready var pause_panel: PausePanel = %PausePanel
 
 var gold_list: Array[Coins]
 
@@ -28,9 +30,11 @@ func _ready() -> void:
 	Global.run_state.capture_enemy_baselines(spawner.enemy_collection)
 	Global.coins = RunState.STARTING_COINS
 	_refresh_wave_hud(false)
+	_refresh_pause_button()
 
 
 func _process(delta: float) -> void:
+	_refresh_pause_button()
 	if Global.game_paused:
 		return
 	_refresh_wave_hud(false)
@@ -101,6 +105,7 @@ func spawn_coins(enemy: Enemy) -> void:
 
 
 func _show_result_victory() -> void:
+	pause_panel.hide()
 	Global.game_paused = true
 	spawner.stop_wave()
 	upgrade_panel.hide()
@@ -112,6 +117,7 @@ func _show_result_victory() -> void:
 func _on_player_died() -> void:
 	if result_panel.visible:
 		return
+	pause_panel.hide()
 	Global.game_paused = true
 	spawner.stop_wave()
 	upgrade_panel.hide()
@@ -120,6 +126,7 @@ func _on_player_died() -> void:
 
 
 func _return_to_selection() -> void:
+	pause_panel.hide()
 	result_panel.hide()
 	upgrade_panel.hide()
 	shop_panel.hide()
@@ -193,3 +200,55 @@ func _on_selection_panel_on_selection_completed() -> void:
 
 func _on_result_panel_on_retry_pressed() -> void:
 	_return_to_selection()
+
+
+func _is_overlay_open() -> bool:
+	return PauseRules.any_overlay_open(
+		selection_panel.visible,
+		upgrade_panel.visible,
+		shop_panel.visible,
+		result_panel.visible
+	)
+
+
+func _refresh_pause_button() -> void:
+	pause_button.visible = PauseRules.should_show_pause_button(
+		is_instance_valid(Global.player),
+		_is_overlay_open(),
+		pause_panel.visible,
+		spawner.is_wave_running()
+	)
+
+
+func open_combat_pause() -> void:
+	if pause_panel.visible:
+		return
+	if not PauseRules.should_show_pause_button(
+		is_instance_valid(Global.player),
+		_is_overlay_open(),
+		false,
+		spawner.is_wave_running()
+	):
+		return
+	Global.game_paused = true
+	spawner.set_combat_clock_paused(true)
+	pause_panel.show()
+	_refresh_pause_button()
+
+
+func resume_combat() -> void:
+	if not pause_panel.visible:
+		return
+	pause_panel.hide()
+	spawner.set_combat_clock_paused(false)
+	Global.game_paused = false
+	_refresh_pause_button()
+
+
+func _on_pause_button_pressed() -> void:
+	SoundManager.play_sound(SoundManager.Sound.UI)
+	open_combat_pause()
+
+
+func _on_pause_panel_on_continue_pressed() -> void:
+	resume_combat()

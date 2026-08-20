@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=3 uid="uid://bjhraywhhpn3h"]
+[gd_scene load_steps=30 format=3 uid="uid://bjhraywhhpn3h"]
 
 [ext_resource type="Texture2D" uid="uid://cy4xfx762bxgb" path="res://assets/sprites/BG.png" id="1_5tue2"]
 [ext_resource type="Script" uid="uid://fylssyuoxjey" path="res://scenes/arena/arena.gd" id="1_asdgj"]
@@ -23,12 +23,46 @@
 [ext_resource type="PackedScene" uid="uid://be4y0ch5v7qa5" path="res://scenes/ui/selection_panel/selection_panel.tscn" id="18_tp84n"]
 [ext_resource type="PackedScene" uid="uid://n0did0o1v8wm" path="res://scenes/ui/mobile_controls/mobile_controls.tscn" id="18_wqbss"]
 [ext_resource type="PackedScene" uid="uid://cavmr0jgfsjow" path="res://scenes/ui/result_panel/result_panel.tscn" id="19_wqbss"]
+[ext_resource type="PackedScene" uid="uid://14vqn4lktl0r" path="res://scenes/ui/pause_panel/pause_panel.tscn" id="23_l0cts"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_6w4xk"]
 font_size = 64
 
 [sub_resource type="LabelSettings" id="LabelSettings_2ml6w"]
 font_size = 64
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_l0cts"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(0.388, 0.388, 0.388, 1)
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ybinm"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(0.094, 0.624, 0.745, 1)
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5ilg6"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(0.094, 0.624, 0.745, 1)
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
 
 [node name="Arena" type="Node2D"]
 script = ExtResource("1_asdgj")
@@ -143,6 +177,24 @@ custom_minimum_size = Vector2(18, 18)
 layout_mode = 2
 color = Color(0.22, 0.22, 0.22, 1)
 
+[node name="PauseButton" type="Button" parent="GameUI"]
+unique_name_in_owner = true
+visible = false
+custom_minimum_size = Vector2(96, 96)
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -120.0
+offset_top = 24.0
+offset_right = -24.0
+offset_bottom = 120.0
+focus_mode = 0
+theme_override_font_sizes/font_size = 32
+theme_override_styles/normal = SubResource("StyleBoxFlat_l0cts")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_ybinm")
+theme_override_styles/hover = SubResource("StyleBoxFlat_5ilg6")
+text = "暂停"
+
 [node name="UpgradePanel" parent="GameUI" instance=ExtResource("15_w4nra")]
 unique_name_in_owner = true
 visible = false
@@ -159,6 +211,11 @@ unique_name_in_owner = true
 [node name="ResultPanel" parent="GameUI" instance=ExtResource("19_wqbss")]
 unique_name_in_owner = true
 
+[node name="PausePanel" parent="GameUI" instance=ExtResource("23_l0cts")]
+unique_name_in_owner = true
+grow_horizontal = 2
+grow_vertical = 2
+
 [node name="MusicPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("18_8kk48")
 volume_db = -30.0
@@ -168,6 +225,8 @@ bus = &"Music"
 [connection signal="on_wave_completed" from="Spawner" to="." method="_on_spawner_on_wave_completed"]
 [connection signal="timeout" from="Spawner/SpawnTimer" to="Spawner" method="_on_spawn_timer_timeout"]
 [connection signal="timeout" from="Spawner/WaveTimer" to="Spawner" method="_on_wave_timer_timeout"]
+[connection signal="pressed" from="GameUI/PauseButton" to="." method="_on_pause_button_pressed"]
 [connection signal="on_shop_next_wave" from="GameUI/ShopPanel" to="." method="_on_shop_panel_on_shop_next_wave"]
 [connection signal="on_selection_completed" from="GameUI/SelectionPanel" to="." method="_on_selection_panel_on_selection_completed"]
 [connection signal="on_retry_pressed" from="GameUI/ResultPanel" to="." method="_on_result_panel_on_retry_pressed"]
+[connection signal="on_continue_pressed" from="GameUI/PausePanel" to="." method="_on_pause_panel_on_continue_pressed"]

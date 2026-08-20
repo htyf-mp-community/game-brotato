@@ -31,6 +31,7 @@ func start_wave() -> void:
 		wave_timer.stop()
 		return
 	
+	set_combat_clock_paused(false)
 	wave_timer.wait_time = current_wave_data.wave_time
 	wave_timer.start()
 	
@@ -127,8 +128,19 @@ func is_final_wave() -> bool:
 
 
 func stop_wave() -> void:
+	spawn_timer.paused = false
+	wave_timer.paused = false
 	spawn_timer.stop()
 	wave_timer.stop()
+
+
+func set_combat_clock_paused(paused: bool) -> void:
+	spawn_timer.paused = paused
+	wave_timer.paused = paused
+
+
+func is_wave_running() -> bool:
+	return not wave_timer.is_stopped()
 
 
 func reset_for_new_run() -> void:
