@@ -16,6 +16,7 @@ func _ready() -> void:
 	dash_button.button_down.connect(_on_dash_button_down)
 	dash_button.gui_input.connect(_on_dash_gui_input)
 	joystick.vector_changed.connect(_on_joystick_vector_changed)
+	joystick.hud_blockers = _sibling_hud_blockers()
 	_apply_visibility(false)
 
 
@@ -37,6 +38,7 @@ func _should_show() -> bool:
 func _apply_visibility(show_controls: bool) -> void:
 	visible = show_controls
 	if show_controls:
+		joystick.hud_blockers = _sibling_hud_blockers()
 		return
 	joystick.release()
 	Global.joystick_vector = Vector2.ZERO
@@ -55,3 +57,15 @@ func _on_dash_gui_input(event: InputEvent) -> void:
 
 func _on_dash_button_down() -> void:
 	Global.dash_just_pressed = true
+
+
+func _sibling_hud_blockers() -> Array[Control]:
+	var result: Array[Control] = []
+	var parent := get_parent()
+	if parent == null:
+		return result
+	for node_name in ["CoinsBag", "WaveIndexLabel", "WaveTimeLabel", "WavePips"]:
+		var node := parent.get_node_or_null(node_name)
+		if node is Control:
+			result.append(node)
+	return result

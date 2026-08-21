@@ -23,5 +23,5 @@ stretch_mode = 5
 
 [node name="Coins" type="Label" parent="."]
 layout_mode = 2
-text = "30"
+text = "20"
 label_settings = SubResource("LabelSettings_sdugs")

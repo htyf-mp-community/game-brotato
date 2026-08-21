@@ -21,6 +21,19 @@ func test_new_run_starts_with_twenty_coins() -> void:
 	assert_eq(state.STARTING_COINS, 20)
 
 
+func test_coins_bag_placeholder_is_twenty() -> void:
+	var packed: PackedScene = load("res://scenes/ui/coins_bag/coins_bag.tscn")
+	assert_true(packed != null, "coins bag scene should load")
+	if packed == null:
+		return
+	var bag: Node = packed.instantiate()
+	var label: Label = bag.get_node_or_null("Coins")
+	assert_true(label != null, "coins bag should have Coins label")
+	if label != null:
+		assert_eq(label.text, "20")
+	bag.free()
+
+
 func test_last_configured_wave_is_final() -> void:
 	var state = _make_state()
 	if state == null:

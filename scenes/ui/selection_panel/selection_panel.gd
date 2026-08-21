@@ -14,6 +14,7 @@ signal on_selection_completed
 @onready var player_title: Label = %PlayerTitle
 @onready var player_description: RichTextLabel = %PlayerDescription
 @onready var continue_button: Button = $MarginContainer/VBoxContainer/Control/ContinueButtom
+@onready var selection_hint: Label = %SelectionHint
 
 func _ready() -> void:
 	for child in player_container.get_children(): child.queue_free()
@@ -70,13 +71,20 @@ func _on_weapon_selected(weapon: ItemWeapon) -> void:
 
 
 func _update_continue_button() -> void:
-	continue_button.disabled = Global.main_player_selected == null or Global.main_weapon_selected == null
+	var player_selected := Global.main_player_selected != null
+	var weapon_selected := Global.main_weapon_selected != null
+	continue_button.disabled = not SelectionRules.is_ready_to_continue(player_selected, weapon_selected)
+	selection_hint.text = SelectionRules.continue_hint(player_selected, weapon_selected)
+	selection_hint.visible = not SelectionRules.is_ready_to_continue(player_selected, weapon_selected)
 
 
 func _on_continue_buttom_pressed() -> void:
 	SoundManager.play_sound(SoundManager.Sound.UI)
 	
-	if Global.main_player_selected == null or Global.main_weapon_selected == null:
+	if not SelectionRules.is_ready_to_continue(
+		Global.main_player_selected != null,
+		Global.main_weapon_selected != null
+	):
 		return
 	
 	on_selection_completed.emit()

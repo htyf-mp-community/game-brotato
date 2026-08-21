@@ -26,11 +26,15 @@
 [ext_resource type="PackedScene" uid="uid://14vqn4lktl0r" path="res://scenes/ui/pause_panel/pause_panel.tscn" id="23_l0cts"]
 [ext_resource type="PackedScene" uid="uid://bkvkvfya6xfan" path="res://_HTYF_SDK/htyf_sdk.tscn" id="25_ybinm"]
 
-[sub_resource type="LabelSettings" id="LabelSettings_6w4xk"]
+[sub_resource type="LabelSettings" id="LabelSettings_ybinm"]
 font_size = 64
+outline_size = 8
+outline_color = Color(0, 0, 0, 0.85)
 
-[sub_resource type="LabelSettings" id="LabelSettings_2ml6w"]
+[sub_resource type="LabelSettings" id="LabelSettings_5ilg6"]
 font_size = 64
+outline_size = 8
+outline_color = Color(0, 0, 0, 0.85)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_l0cts"]
 content_margin_left = 4.0
@@ -110,7 +114,7 @@ offset_right = 280.0
 offset_bottom = 39.3333
 grow_horizontal = 2
 text = "第 1 / 8 波"
-label_settings = SubResource("LabelSettings_6w4xk")
+label_settings = SubResource("LabelSettings_ybinm")
 horizontal_alignment = 1
 
 [node name="WaveTimeLabel" type="Label" parent="GameUI"]
@@ -124,7 +128,7 @@ offset_right = 27.5
 offset_bottom = 119.333
 grow_horizontal = 2
 text = "30"
-label_settings = SubResource("LabelSettings_2ml6w")
+label_settings = SubResource("LabelSettings_5ilg6")
 
 [node name="WavePips" type="HBoxContainer" parent="GameUI"]
 unique_name_in_owner = true
@@ -214,8 +218,6 @@ unique_name_in_owner = true
 
 [node name="PausePanel" parent="GameUI" instance=ExtResource("23_l0cts")]
 unique_name_in_owner = true
-grow_horizontal = 2
-grow_vertical = 2
 
 [node name="MusicPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("18_8kk48")

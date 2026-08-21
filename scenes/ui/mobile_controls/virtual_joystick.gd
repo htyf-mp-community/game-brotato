@@ -7,10 +7,10 @@ signal vector_changed(vector: Vector2)
 @export var knob_radius := 42.0
 @export var deadzone := 0.12
 @export var floating := true
-@export var ring_color := Color(1.0, 1.0, 1.0, 0.28)
-@export var ring_fill_color := Color(0.0, 0.0, 0.0, 0.32)
-@export var knob_color := Color(0.09, 0.62, 0.75, 0.88)
-@export var knob_pressed_color := Color(0.09, 0.62, 0.75, 1.0)
+@export var ring_color := Color(1.0, 1.0, 1.0, 0.14)
+@export var ring_fill_color := Color(0.0, 0.0, 0.0, 0.16)
+@export var knob_color := Color(0.09, 0.62, 0.75, 0.44)
+@export var knob_pressed_color := Color(0.09, 0.62, 0.75, 0.72)
 
 var output := Vector2.ZERO
 
@@ -18,6 +18,7 @@ var _pressing := false
 var _pointer_id := -999
 var _origin := Vector2.ZERO
 var _knob_offset := Vector2.ZERO
+var hud_blockers: Array[Control] = []
 
 const NONE_ID := -999
 const MOUSE_ID := -1
@@ -107,13 +108,15 @@ func _draw() -> void:
 	var knob_pos := _origin + _knob_offset
 	var fill := knob_pressed_color if _pressing else knob_color
 	draw_circle(knob_pos, knob_radius, fill)
-	draw_arc(knob_pos, knob_radius, 0.0, TAU, 48, Color(1.0, 1.0, 1.0, 0.4), 3.0, true)
+	draw_arc(knob_pos, knob_radius, 0.0, TAU, 48, Color(1.0, 1.0, 1.0, 0.2), 3.0, true)
 
 
 func _try_press(pointer_id: int, local_pos: Vector2) -> void:
 	if _pressing:
 		return
-	if not Rect2(Vector2.ZERO, size).has_point(local_pos):
+	var stick_area := Rect2(Vector2.ZERO, size)
+	var excluded := JoystickRules.top_bar_exclusion(_hud_rects_local(), stick_area)
+	if not JoystickRules.can_begin_press(local_pos, stick_area, excluded):
 		return
 	_pressing = true
 	_pointer_id = pointer_id
@@ -146,3 +149,16 @@ func _reset_visual() -> void:
 
 func _rest_origin() -> Vector2:
 	return Vector2(size.x * 0.5, maxf(ring_radius + 48.0, size.y - ring_radius - 48.0))
+
+
+func _hud_rects_local() -> Array[Rect2]:
+	var rects: Array[Rect2] = []
+	var inv := get_global_transform_with_canvas().affine_inverse()
+	for node in hud_blockers:
+		if not is_instance_valid(node) or not node.visible:
+			continue
+		var global_rect := node.get_global_rect()
+		var top_left: Vector2 = inv * global_rect.position
+		var bottom_right: Vector2 = inv * global_rect.end
+		rects.append(Rect2(top_left, bottom_right - top_left).abs())
+	return rects

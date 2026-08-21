@@ -1,4 +1,4 @@
-# Brotato Clone
+# 土豆兄弟
 
 Godot 4.5 横屏生存射击小游戏，可在编辑器直接运行，也可通过红糖云服 CLI（`htyf`）打包或真机调试。
 
@@ -130,7 +130,7 @@ npx @htyf-mp/cli --help
 | 字段 | 含义 | 当前值 |
 | --- | --- | --- |
 | `type` | 项目类型 | `game` |
-| `name` | 展示名 | `Brotato` |
+| `name` | 展示名 | `土豆兄弟` |
 | `version` | 版本号 | `0.0.2`（CLI 可能改写） |
 | `appid` | 小程序 ID | `htyfappf49da0bb73f392e688e9754211` |
 | `rotate` | 屏幕方向 | `landscape` |

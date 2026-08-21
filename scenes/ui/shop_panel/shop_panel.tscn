@@ -144,7 +144,21 @@ grow_horizontal = 2
 text = "商店"
 label_settings = SubResource("LabelSettings_whl1y")
 
-[node name="ItemsContainer" type="HBoxContainer" parent="MarginContainer/Control"]
+[node name="ContentBoard" type="Control" parent="MarginContainer/Control"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 0.5
+anchor_top = 0.0
+anchor_right = 0.5
+anchor_bottom = 0.0
+offset_left = -960.0
+offset_top = 0.0
+offset_right = 960.0
+offset_bottom = 1080.0
+grow_horizontal = 2
+
+[node name="ItemsContainer" type="HBoxContainer" parent="MarginContainer/Control/ContentBoard"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(1328, 400)
 layout_mode = 0
@@ -154,26 +168,26 @@ offset_right = 60.0
 offset_bottom = 218.0
 theme_override_constants/separation = 16
 
-[node name="ShopCard" parent="MarginContainer/Control/ItemsContainer" instance=ExtResource("2_vr486")]
+[node name="ShopCard" parent="MarginContainer/Control/ContentBoard/ItemsContainer" instance=ExtResource("2_vr486")]
 layout_mode = 2
 
-[node name="ShopCard2" parent="MarginContainer/Control/ItemsContainer" instance=ExtResource("2_vr486")]
+[node name="ShopCard2" parent="MarginContainer/Control/ContentBoard/ItemsContainer" instance=ExtResource("2_vr486")]
 layout_mode = 2
 
-[node name="ShopCard3" parent="MarginContainer/Control/ItemsContainer" instance=ExtResource("2_vr486")]
+[node name="ShopCard3" parent="MarginContainer/Control/ContentBoard/ItemsContainer" instance=ExtResource("2_vr486")]
 layout_mode = 2
 
-[node name="ShopCard4" parent="MarginContainer/Control/ItemsContainer" instance=ExtResource("2_vr486")]
+[node name="ShopCard4" parent="MarginContainer/Control/ContentBoard/ItemsContainer" instance=ExtResource("2_vr486")]
 layout_mode = 2
 
-[node name="StatsContainer" parent="MarginContainer/Control" instance=ExtResource("3_whl1y")]
+[node name="StatsContainer" parent="MarginContainer/Control/ContentBoard" instance=ExtResource("3_whl1y")]
 layout_mode = 0
 offset_left = 1380.0
 offset_top = 178.0
 offset_right = 1420.0
 offset_bottom = 218.0
 
-[node name="Passives" type="VBoxContainer" parent="MarginContainer/Control"]
+[node name="Passives" type="VBoxContainer" parent="MarginContainer/Control/ContentBoard"]
 custom_minimum_size = Vector2(752, 250)
 layout_mode = 0
 offset_left = 20.0
@@ -183,98 +197,98 @@ offset_bottom = 808.0
 theme_override_constants/separation = 16
 alignment = 1
 
-[node name="Label" type="Label" parent="MarginContainer/Control/Passives"]
+[node name="Label" type="Label" parent="MarginContainer/Control/ContentBoard/Passives"]
 layout_mode = 2
 text = "道具"
 label_settings = SubResource("LabelSettings_1gnn5")
 horizontal_alignment = 1
 
-[node name="PassivesContainer" type="GridContainer" parent="MarginContainer/Control/Passives"]
+[node name="PassivesContainer" type="GridContainer" parent="MarginContainer/Control/ContentBoard/Passives"]
 unique_name_in_owner = true
 layout_mode = 2
 theme_override_constants/h_separation = 16
 theme_override_constants/v_separation = 16
 columns = 8
 
-[node name="ItemCard" parent="MarginContainer/Control/Passives/PassivesContainer" instance=ExtResource("49_rqkor")]
+[node name="ItemCard" parent="MarginContainer/Control/ContentBoard/Passives/PassivesContainer" instance=ExtResource("49_rqkor")]
 layout_mode = 2
 
-[node name="ItemCard2" type="Button" parent="MarginContainer/Control/Passives/PassivesContainer"]
+[node name="ItemCard2" type="Button" parent="MarginContainer/Control/ContentBoard/Passives/PassivesContainer"]
 custom_minimum_size = Vector2(80, 80)
 layout_mode = 2
 theme_override_styles/normal = ExtResource("4_o7w7v")
 
-[node name="ItemCard3" type="Button" parent="MarginContainer/Control/Passives/PassivesContainer"]
+[node name="ItemCard3" type="Button" parent="MarginContainer/Control/ContentBoard/Passives/PassivesContainer"]
 custom_minimum_size = Vector2(80, 80)
 layout_mode = 2
 theme_override_styles/normal = ExtResource("4_o7w7v")
 
-[node name="ItemCard4" type="Button" parent="MarginContainer/Control/Passives/PassivesContainer"]
+[node name="ItemCard4" type="Button" parent="MarginContainer/Control/ContentBoard/Passives/PassivesContainer"]
 custom_minimum_size = Vector2(80, 80)
 layout_mode = 2
 theme_override_styles/normal = ExtResource("4_o7w7v")
 
-[node name="ItemCard5" type="Button" parent="MarginContainer/Control/Passives/PassivesContainer"]
+[node name="ItemCard5" type="Button" parent="MarginContainer/Control/ContentBoard/Passives/PassivesContainer"]
 custom_minimum_size = Vector2(80, 80)
 layout_mode = 2
 theme_override_styles/normal = ExtResource("4_o7w7v")
 
-[node name="ItemCard6" type="Button" parent="MarginContainer/Control/Passives/PassivesContainer"]
+[node name="ItemCard6" type="Button" parent="MarginContainer/Control/ContentBoard/Passives/PassivesContainer"]
 custom_minimum_size = Vector2(80, 80)
 layout_mode = 2
 theme_override_styles/normal = ExtResource("4_o7w7v")
 
-[node name="ItemCard7" type="Button" parent="MarginContainer/Control/Passives/PassivesContainer"]
+[node name="ItemCard7" type="Button" parent="MarginContainer/Control/ContentBoard/Passives/PassivesContainer"]
 custom_minimum_size = Vector2(80, 80)
 layout_mode = 2
 theme_override_styles/normal = ExtResource("4_o7w7v")
 
-[node name="ItemCard8" type="Button" parent="MarginContainer/Control/Passives/PassivesContainer"]
+[node name="ItemCard8" type="Button" parent="MarginContainer/Control/ContentBoard/Passives/PassivesContainer"]
 custom_minimum_size = Vector2(80, 80)
 layout_mode = 2
 theme_override_styles/normal = ExtResource("4_o7w7v")
 
-[node name="ItemCard9" type="Button" parent="MarginContainer/Control/Passives/PassivesContainer"]
+[node name="ItemCard9" type="Button" parent="MarginContainer/Control/ContentBoard/Passives/PassivesContainer"]
 custom_minimum_size = Vector2(80, 80)
 layout_mode = 2
 theme_override_styles/normal = ExtResource("4_o7w7v")
 
-[node name="ItemCard10" type="Button" parent="MarginContainer/Control/Passives/PassivesContainer"]
+[node name="ItemCard10" type="Button" parent="MarginContainer/Control/ContentBoard/Passives/PassivesContainer"]
 custom_minimum_size = Vector2(80, 80)
 layout_mode = 2
 theme_override_styles/normal = ExtResource("4_o7w7v")
 
-[node name="ItemCard11" type="Button" parent="MarginContainer/Control/Passives/PassivesContainer"]
+[node name="ItemCard11" type="Button" parent="MarginContainer/Control/ContentBoard/Passives/PassivesContainer"]
 custom_minimum_size = Vector2(80, 80)
 layout_mode = 2
 theme_override_styles/normal = ExtResource("4_o7w7v")
 
-[node name="ItemCard12" type="Button" parent="MarginContainer/Control/Passives/PassivesContainer"]
+[node name="ItemCard12" type="Button" parent="MarginContainer/Control/ContentBoard/Passives/PassivesContainer"]
 custom_minimum_size = Vector2(80, 80)
 layout_mode = 2
 theme_override_styles/normal = ExtResource("4_o7w7v")
 
-[node name="ItemCard13" type="Button" parent="MarginContainer/Control/Passives/PassivesContainer"]
+[node name="ItemCard13" type="Button" parent="MarginContainer/Control/ContentBoard/Passives/PassivesContainer"]
 custom_minimum_size = Vector2(80, 80)
 layout_mode = 2
 theme_override_styles/normal = ExtResource("4_o7w7v")
 
-[node name="ItemCard14" type="Button" parent="MarginContainer/Control/Passives/PassivesContainer"]
+[node name="ItemCard14" type="Button" parent="MarginContainer/Control/ContentBoard/Passives/PassivesContainer"]
 custom_minimum_size = Vector2(80, 80)
 layout_mode = 2
 theme_override_styles/normal = ExtResource("4_o7w7v")
 
-[node name="ItemCard15" type="Button" parent="MarginContainer/Control/Passives/PassivesContainer"]
+[node name="ItemCard15" type="Button" parent="MarginContainer/Control/ContentBoard/Passives/PassivesContainer"]
 custom_minimum_size = Vector2(80, 80)
 layout_mode = 2
 theme_override_styles/normal = ExtResource("4_o7w7v")
 
-[node name="ItemCard16" type="Button" parent="MarginContainer/Control/Passives/PassivesContainer"]
+[node name="ItemCard16" type="Button" parent="MarginContainer/Control/ContentBoard/Passives/PassivesContainer"]
 custom_minimum_size = Vector2(80, 80)
 layout_mode = 2
 theme_override_styles/normal = ExtResource("4_o7w7v")
 
-[node name="Weapons" type="VBoxContainer" parent="MarginContainer/Control"]
+[node name="Weapons" type="VBoxContainer" parent="MarginContainer/Control/ContentBoard"]
 custom_minimum_size = Vector2(350, 250)
 layout_mode = 0
 offset_left = 998.0
@@ -284,13 +298,13 @@ offset_bottom = 808.0
 theme_override_constants/separation = 16
 alignment = 1
 
-[node name="Label" type="Label" parent="MarginContainer/Control/Weapons"]
+[node name="Label" type="Label" parent="MarginContainer/Control/ContentBoard/Weapons"]
 layout_mode = 2
 text = "武器"
 label_settings = SubResource("LabelSettings_1gnn5")
 horizontal_alignment = 1
 
-[node name="WeaponsContainer" type="GridContainer" parent="MarginContainer/Control/Weapons"]
+[node name="WeaponsContainer" type="GridContainer" parent="MarginContainer/Control/ContentBoard/Weapons"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 4
@@ -298,37 +312,37 @@ theme_override_constants/h_separation = 16
 theme_override_constants/v_separation = 16
 columns = 3
 
-[node name="ItemCard" type="Button" parent="MarginContainer/Control/Weapons/WeaponsContainer"]
+[node name="ItemCard" type="Button" parent="MarginContainer/Control/ContentBoard/Weapons/WeaponsContainer"]
 custom_minimum_size = Vector2(80, 80)
 layout_mode = 2
 theme_override_styles/normal = ExtResource("4_o7w7v")
 
-[node name="ItemCard2" type="Button" parent="MarginContainer/Control/Weapons/WeaponsContainer"]
+[node name="ItemCard2" type="Button" parent="MarginContainer/Control/ContentBoard/Weapons/WeaponsContainer"]
 custom_minimum_size = Vector2(80, 80)
 layout_mode = 2
 theme_override_styles/normal = ExtResource("4_o7w7v")
 
-[node name="ItemCard3" type="Button" parent="MarginContainer/Control/Weapons/WeaponsContainer"]
+[node name="ItemCard3" type="Button" parent="MarginContainer/Control/ContentBoard/Weapons/WeaponsContainer"]
 custom_minimum_size = Vector2(80, 80)
 layout_mode = 2
 theme_override_styles/normal = ExtResource("4_o7w7v")
 
-[node name="ItemCard4" type="Button" parent="MarginContainer/Control/Weapons/WeaponsContainer"]
+[node name="ItemCard4" type="Button" parent="MarginContainer/Control/ContentBoard/Weapons/WeaponsContainer"]
 custom_minimum_size = Vector2(80, 80)
 layout_mode = 2
 theme_override_styles/normal = ExtResource("4_o7w7v")
 
-[node name="ItemCard5" type="Button" parent="MarginContainer/Control/Weapons/WeaponsContainer"]
+[node name="ItemCard5" type="Button" parent="MarginContainer/Control/ContentBoard/Weapons/WeaponsContainer"]
 custom_minimum_size = Vector2(80, 80)
 layout_mode = 2
 theme_override_styles/normal = ExtResource("4_o7w7v")
 
-[node name="ItemCard6" type="Button" parent="MarginContainer/Control/Weapons/WeaponsContainer"]
+[node name="ItemCard6" type="Button" parent="MarginContainer/Control/ContentBoard/Weapons/WeaponsContainer"]
 custom_minimum_size = Vector2(80, 80)
 layout_mode = 2
 theme_override_styles/normal = ExtResource("4_o7w7v")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/Control"]
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/Control/ContentBoard"]
 custom_minimum_size = Vector2(350, 300)
 layout_mode = 0
 offset_left = 1440.0
@@ -338,20 +352,20 @@ offset_bottom = 780.0
 theme_override_constants/separation = 16
 alignment = 1
 
-[node name="NewWaveButton" type="Button" parent="MarginContainer/Control/VBoxContainer"]
+[node name="NewWaveButton" type="Button" parent="MarginContainer/Control/ContentBoard/VBoxContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 48
 theme_override_styles/normal = SubResource("StyleBoxFlat_ws1b3")
 text = "下一波"
 
-[node name="CombineButton" type="Button" parent="MarginContainer/Control/VBoxContainer"]
+[node name="CombineButton" type="Button" parent="MarginContainer/Control/ContentBoard/VBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 theme_override_font_sizes/font_size = 48
 theme_override_styles/normal = SubResource("StyleBoxFlat_fjhgy")
 text = "合成"
 
-[node name="SellButton" type="Button" parent="MarginContainer/Control/VBoxContainer"]
+[node name="SellButton" type="Button" parent="MarginContainer/Control/ContentBoard/VBoxContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 48
 theme_override_styles/normal = SubResource("StyleBoxFlat_8htdu")
@@ -364,6 +378,6 @@ offset_top = 0.0
 offset_right = 159.0
 offset_bottom = 106.0
 
-[connection signal="pressed" from="MarginContainer/Control/VBoxContainer/NewWaveButton" to="." method="_on_new_wave_button_pressed"]
-[connection signal="pressed" from="MarginContainer/Control/VBoxContainer/CombineButton" to="." method="_on_combine_button_pressed"]
-[connection signal="pressed" from="MarginContainer/Control/VBoxContainer/SellButton" to="." method="_on_sell_button_pressed"]
+[connection signal="pressed" from="MarginContainer/Control/ContentBoard/VBoxContainer/NewWaveButton" to="." method="_on_new_wave_button_pressed"]
+[connection signal="pressed" from="MarginContainer/Control/ContentBoard/VBoxContainer/CombineButton" to="." method="_on_combine_button_pressed"]
+[connection signal="pressed" from="MarginContainer/Control/ContentBoard/VBoxContainer/SellButton" to="." method="_on_sell_button_pressed"]
