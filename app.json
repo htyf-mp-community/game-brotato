@@ -2,7 +2,7 @@
   "htyf": {
     "type": "game",
     "name": "土豆兄弟",
-    "version": "0.0.10",
+    "version": "0.0.11",
     "appid": "htyfappf49da0bb73f392e688e9754211",
     "rotate": "landscape",
     "appUrlConfig": "https://hongtangyun-1252095557.cos.ap-chengdu.myqcloud.com/assets/testMiniApps/appstore/plugin/game-brotato/app.json",
